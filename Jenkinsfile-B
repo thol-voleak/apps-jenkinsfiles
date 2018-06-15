@@ -20,16 +20,12 @@ pipeline {
     post { 
         success{ 
             script{
-                def isupdate = sh (script: '$REDIS_CLI -h $REDIS_HOST GET is-require-${PRO_NAME}-b-update', returnStdout: true).trim()
-                if(isupdate.equals("Y")){
-                    sh '$REDIS_CLI -h $REDIS_HOST SET is-require-${PRO_NAME}-b-update N'
-                    //sh 'echo sucessed'
-                    slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
-                }
+                sh '$REDIS_CLI -h $REDIS_HOST SET is-require-${PRO_NAME}-b-update N'
+                slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
+                
             }
         }
         failure {
-          //sh 'echo fail'
           slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
     }

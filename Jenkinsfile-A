@@ -18,7 +18,6 @@ pipeline {
         }
         stage('Smoke Test+Push'){
             steps{
-              //sh "echo test"
               sh "$OC login -u$OCP_USER_NAME -p$OCP_PWD --server=$OCP_SERVER --certificate-authority=$OCP_CERT_PATH"
               script{
                 try{
@@ -56,7 +55,6 @@ pipeline {
             slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
         failure {
-          sh 'echo fail'
           slackSend (color: '#ff9f33', message: "Failed build: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
     }
