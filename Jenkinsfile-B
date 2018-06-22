@@ -26,6 +26,7 @@ pipeline {
             }
         }
         failure {
+          sh "$OC rollout cancel dc/service-b"
           slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
     }
