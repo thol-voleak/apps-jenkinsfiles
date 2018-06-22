@@ -9,7 +9,7 @@ pipeline {
             script{
               def isinprocessing = sh (script: '$REDIS_CLI -h $REDIS_HOST GET is-${PRO_NAME}-inprocessing', returnStdout: true).trim()
               if(isinprocessing.equals("Y")){
-                  echo '[FAILURE] Service B is inprocessing build'
+                  echo 'error Service B is inprocessing build'
                   currentBuild.result = 'FAILURE'
                   return
               }
