@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout SCM'){
           steps{
             script{
-              git branch: '$BRANCH',credentialsId: 'bitbucket-credential',url: '$GIT_URL'
+              git branch: '$BRANCH',credentialsId: 'devops-bitbucket-credential',url: '$GIT_URL'
             }
           }
         }
