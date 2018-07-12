@@ -31,6 +31,9 @@ def getMessage(respondStr){
 }
 pipeline {
     agent any
+    script{
+        def message = "UNKOWN"
+    }
     stages{
         stage("Invoker") {
             steps{
@@ -38,7 +41,7 @@ pipeline {
                     def uri = initURI()
                     def re = sh (script: "curl -X ${uri}", returnStdout: true)
                     def status = getStatus("${re}")
-                    def message = getMessage("${re}")
+                    message = getMessage("${re}")
                     sh "echo ${status}"
                     sh "echo ${message}"
                     if(status.equals(false)){
