@@ -10,15 +10,17 @@ def initURI(){
     return  uri
 }
 
-def respondVerify(respondStr){
+def respondVerify(respondStr,msg){
     println(respondStr)
     def jsonSlurper = new JsonSlurper()
     def respondJson = jsonSlurper.parseText(respondStr)
     assert respondJson instanceof Map
     println("$respondJson.id")
-    if(respondJson.content=="service-a-12-9682t#"){
+    if(respondJson.status=="F"){
+        msg=respondJson.message
         return false
     }
+    msg=respondJson.message
     return true
 }
 
@@ -30,7 +32,8 @@ pipeline {
                 script{
                     def uri = initURI()
                     def re = sh (script: "curl -X ${uri}", returnStdout: true)
-                    def status = respondVerify("${re}")
+                    def msg = "UNKOWN"
+                    def status = respondVerify("${re}",msg)
                     sh "echo ${status}"
                     if(status.equals(false)){
                         error "build fail"
@@ -39,9 +42,9 @@ pipeline {
             }
         }
     }
-    post { 
-        success{ 
-            slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")    
+    post {
+        success{
+            slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
         failure {
             slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
