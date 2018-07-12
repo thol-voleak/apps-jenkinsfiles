@@ -34,7 +34,7 @@ pipeline {
                     def re = sh (script: "curl -X ${uri}", returnStdout: true)
                     def msg = "UNKOWN"
                     def status = respondVerify("${re}",msg)
-                    sh "echo ${status}"
+                    sh "echo ${status}: ${msg}"
                     if(status.equals(false)){
                         error "build fail"
                     }
