@@ -31,9 +31,6 @@ def getMessage(respondStr){
 }
 pipeline {
     agent any
-    script{
-        def message = "UNKOWN"
-    }
     stages{
         stage("Invoker") {
             steps{
@@ -41,7 +38,7 @@ pipeline {
                     def uri = initURI()
                     def re = sh (script: "curl -X ${uri}", returnStdout: true)
                     def status = getStatus("${re}")
-                    message = getMessage("${re}")
+                    def message = getMessage("${re}")
                     sh "echo ${status}"
                     sh "echo ${message}"
                     if(status.equals(false)){
@@ -53,9 +50,11 @@ pipeline {
     }
     post {
         success{
+            sh "echo ${message}"
             slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
         failure {
+            sh "echo ${message}"
             slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
         }
     }
