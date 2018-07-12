@@ -21,6 +21,7 @@ def respondVerify(respondStr,msg){
         return false
     }
     msg=respondJson.message
+    println(msg)
     return true
 }
 
