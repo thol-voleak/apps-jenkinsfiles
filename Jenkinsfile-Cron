@@ -10,29 +10,21 @@ def initURI(){
     return  uri
 }
 
-def respondVerify(respondStr){
-    println(respondStr)
+def getStatus(respondStr){
     def jsonSlurper = new JsonSlurper()
     def respondJson = jsonSlurper.parseText(respondStr)
     assert respondJson instanceof Map
     if(respondJson.status=="F"){
-        println(respondJson.message)
-        msg=respondJson.message
-        println(msg)
         return false
     }
-    msg=respondJson.message
-    println(msg)
     return true
 }
 
 def getMessage(respondStr){
-    println(respondStr)
     def jsonSlurper = new JsonSlurper()
     def respondJson = jsonSlurper.parseText(respondStr)
     assert respondJson instanceof Map
     if(respondJson.status=="F"){
-        println(respondJson.message)
         return respondJson.message
     }
     return respondJson.message
@@ -45,9 +37,10 @@ pipeline {
                 script{
                     def uri = initURI()
                     def re = sh (script: "curl -X ${uri}", returnStdout: true)
-                    def status = respondVerify("${re}")
+                    def status = getStatus("${re}")
                     def message = getMessage("${re}")
-                    sh "echo ${status}: ${message}"
+                    sh "echo ${status}"
+                    sh "echo ${message}"
                     if(status.equals(false)){
                         error "build fail"
                     }
