@@ -42,9 +42,10 @@ pipeline {
                     def message = getMessage("${re}")
                     sh "echo ${status}"
                     sh "echo ${message}"
+                    /*
                     if(status.equals(false)){
                         error "build fail"
-                    }
+                    }*/
                 }
             }
         }
