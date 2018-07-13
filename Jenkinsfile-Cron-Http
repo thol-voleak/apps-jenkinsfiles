@@ -19,14 +19,14 @@ def invokerHttp() throws  Exception{
     }
     def postRC = post.getResponseCode();
     if(!postRC.equals(200)) {
-        env.FAILURE_STAGE = "Status Code: (" + post.getResponseCode() + ") Detail -> Please view report"
+        env.FAILURE_STAGE = "Error Code: (" + post.getResponseCode() + ") Detail -> Please view report"
         error(post.getResponseCode())
     }
     respond = jsonSlurper.parseText(post.getInputStream().getText())
     assert respond instanceof Map
     if(respond.status=="F"){
-        env.FAILURE_STAGE = respond.message
-        error(respond.message)
+        env.FAILURE_STAGE = "Error Code: " + respond.errorCode + " Message: " respond.onlyMessage
+        error(respond.errorCode)
     }
 }
 pipeline {
