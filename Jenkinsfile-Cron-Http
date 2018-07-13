@@ -55,6 +55,7 @@ pipeline {
         failure {
             //sh "echo ${message}"
             mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'voleak.rupp@gmail.com'
             slackSend (color: '#FF0000', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
         }
     }
