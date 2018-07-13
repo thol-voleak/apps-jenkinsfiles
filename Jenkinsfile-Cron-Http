@@ -43,11 +43,11 @@ pipeline {
     post {
         success{
             //sh "echo ${message}"
-            slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nView Report: (${env.BUILD_URL})'")
+            slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER} (<${env.BUILD_URL}|Details>)]'")
         }
         failure {
             //sh "echo ${message}"
-            slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE}]\nView Report: (${env.BUILD_URL})'")
+            slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Details>)]'")
         }
     }
 }
