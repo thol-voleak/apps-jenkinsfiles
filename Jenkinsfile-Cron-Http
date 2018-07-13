@@ -49,10 +49,12 @@ pipeline {
     post {
         success{
             //sh "echo ${message}"
+            mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
             slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER} (<${env.BUILD_URL}|Detail>)]'")
         }
         failure {
             //sh "echo ${message}"
+            mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
             slackSend (color: '#FF0000', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
         }
     }
