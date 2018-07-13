@@ -25,7 +25,7 @@ def invokerHttp() throws  Exception{
     respond = jsonSlurper.parseText(post.getInputStream().getText())
     assert respond instanceof Map
     if(respond.status=="F"){
-        env.FAILURE_STAGE = "Error Code: " + respond.errorCode + " Message: " respond.onlyMessage
+        env.FAILURE_STAGE = "Error Code: " + respond.errorCode + " Message: " + respond.onlyMessage
         error(respond.errorCode)
     }
 }
