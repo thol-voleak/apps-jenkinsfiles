@@ -53,7 +53,7 @@ pipeline {
             //slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER} (<${env.BUILD_URL}|Detail>)]'")
         }
         failure {
-            emailext attachmentsPattern: '/var/jenkins_home/testing.html', body: 'Test attachments', to: 'volak.tho@ascendcorp.com'
+            emailext attachmentsPattern: '/var/jenkins_home/testing.html', body: 'Test attachments', to: 'voleak.rupp@gmail.com'
             //sh "echo ${message}"
             //mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
             //emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'voleak.rupp@gmail.com'
