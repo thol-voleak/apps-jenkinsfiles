@@ -19,7 +19,7 @@ def invokerHttp() throws  Exception{
     }
     def postRC = post.getResponseCode();
     if(!postRC.equals(200)) {
-        env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link -> "
+        env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
         error(post.getResponseCode())
     }
     respond = jsonSlurper.parseText(post.getInputStream().getText())
@@ -47,7 +47,7 @@ pipeline {
         }
         failure {
             //sh "echo ${message}"
-            slackSend (color: '#33ff36', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
+            slackSend (color: '	#FF0000', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
         }
     }
 }
