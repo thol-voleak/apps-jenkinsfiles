@@ -19,8 +19,8 @@ def invokerHttp() throws  Exception{
     }
     def postRC = post.getResponseCode();
     if(!postRC.equals(200)) {
-        env.FAILURE_STAGE = post.getInputStream().getText()
-        error(post.getInputStream().getText())
+        env.FAILURE_STAGE = post.getResponseCode() + " Please check report"
+        error(post.getResponseCode())
     }
     respond = jsonSlurper.parseText(post.getInputStream().getText())
     assert respond instanceof Map
