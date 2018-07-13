@@ -19,7 +19,7 @@ def invokerHttp() throws  Exception{
     }
     def postRC = post.getResponseCode();
     if(!postRC.equals(200)) {
-        env.FAILURE_STAGE = post.getResponseCode() + " Please check report"
+        env.FAILURE_STAGE = "Status Code: (" + post.getResponseCode() + ") Detail -> Please view report"
         error(post.getResponseCode())
     }
     respond = jsonSlurper.parseText(post.getInputStream().getText())
