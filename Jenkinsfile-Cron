@@ -15,6 +15,7 @@ def getStatus(respondStr){
     def respondJson = jsonSlurper.parseText(respondStr)
     assert respondJson instanceof Map
     if(respondJson.status=="F"){
+        throw RuntimeException("Build failed for some specific reason!")
         return false
     }
     return true
