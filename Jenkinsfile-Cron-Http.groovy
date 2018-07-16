@@ -24,7 +24,6 @@ def invokerHttp(){
             error("Error Code: " + post.getResponseCode())
         }
     }catch (Exception e){
-        e.printStackTrace()
         env.FAILURE_STAGE ="Connection request timeout"
         error("Connection request timeout")
     }
@@ -38,6 +37,11 @@ def invokerHttp(){
 pipeline {
     agent any
     stages{
+        stage("Regression Test"){
+            steps{
+                build("Test-Jmeter")
+            }
+        }
         stage("Invoker") {
             steps{
                 script{
