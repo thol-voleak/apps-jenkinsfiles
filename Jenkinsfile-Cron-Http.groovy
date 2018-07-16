@@ -23,7 +23,7 @@ def invokerHttp() throws  Exception{
             env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
             error("Error Code: " + post.getResponseCode())
         }
-    }catch (SocketTimeoutException e){
+    }catch (Exception e){
         e.printStackTrace()
         env.FAILURE_STAGE ="Connection request timeout"
         error("Connection request timeout")
@@ -41,7 +41,11 @@ pipeline {
         stage("Invoker") {
             steps{
                 script{
-                    invokerHttp()
+                    try {
+                        invokerHttp()
+                    }catch (Exception e){
+                        sh 'echo errrr'
+                    }
                 }
             }
         }
