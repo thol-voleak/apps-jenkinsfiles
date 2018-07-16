@@ -42,7 +42,7 @@ pipeline {
             steps{
                 script{
                     invokerHttp()
-                    build("Test-Jmeter")
+                    //build("Test-Jmeter")
                 }
             }
         }
