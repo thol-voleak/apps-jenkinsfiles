@@ -1,5 +1,6 @@
 import groovy.json.JsonSlurper
-def invokerHttp() throws  Exception{
+def invokerHttp(){
+
     def jsonSlurper = new JsonSlurper()
     def filePath = "/var/jenkins_home/jobs/${env.JOB_NAME}/configure.json"
     //def filePath = "configure.json"
@@ -41,11 +42,8 @@ pipeline {
         stage("Invoker") {
             steps{
                 script{
-                    try {
-                        invokerHttp()
-                    }catch (Exception e){
-                        sh 'echo errrr'
-                    }
+                    invokerHttp()
+                    build("Test-Jmeter")
                 }
             }
         }
