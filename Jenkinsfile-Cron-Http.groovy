@@ -10,8 +10,8 @@ def invokerHttp(){
     try {
         post = new URL("$configuration.url").openConnection();
         post.setRequestMethod("$configuration.method")
-        post.setConnectTimeout(30000)
-        post.setReadTimeout(30000)
+        post.setConnectTimeout(1)
+        post.setReadTimeout(1)
         post.setDoOutput(true)
         if ("$configuration.method" == "POST") {
             post.setRequestProperty("Content-Type", "application/json")
