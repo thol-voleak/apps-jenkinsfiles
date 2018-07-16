@@ -1,6 +1,5 @@
 import groovy.json.JsonSlurper
 def invokerHttp(){
-
     def jsonSlurper = new JsonSlurper()
     def filePath = "/var/jenkins_home/jobs/${env.JOB_NAME}/configure.json"
     //def filePath = "configure.json"
@@ -11,8 +10,8 @@ def invokerHttp(){
     try {
         def post = new URL("$configuration.url").openConnection();
         post.setRequestMethod("$configuration.method")
-        post.setConnectTimeout(1)
-        post.setReadTimeout(1)
+        post.setConnectTimeout(30000)
+        post.setReadTimeout(30000)
         post.setDoOutput(true)
         if ("$configuration.method" == "POST") {
             post.setRequestProperty("Content-Type", "application/json")
