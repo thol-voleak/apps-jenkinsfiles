@@ -23,7 +23,7 @@ def invokerHttp(){
             env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
             error("Error Code: " + post.getResponseCode())
         }
-    }catch (Exception e){
+    }catch (Exception){
         env.FAILURE_STAGE ="Connection request timeout"
         error("Connection request timeout")
     }
