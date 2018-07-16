@@ -21,7 +21,7 @@ def invokerHttp() throws  Exception{
         def postRC = post.getResponseCode();
         if (!postRC.equals(200)) {
             env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
-            error(post.getResponseCode())
+            error("Error Code: " + post.getResponseCode())
         }
     }catch (SocketTimeoutException e){
         e.printStackTrace()
