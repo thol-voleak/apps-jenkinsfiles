@@ -7,7 +7,7 @@ def invokerHttp(){
     def configuration = jsonSlurper.parse(reader)
     assert configuration instanceof Map
     def respond = null
-    try {
+    //try {
         def post = new URL("$configuration.url").openConnection();
         post.setRequestMethod("$configuration.method")
         post.setConnectTimeout(30000)
@@ -23,10 +23,10 @@ def invokerHttp(){
             env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
             error("Error Code: " + post.getResponseCode())
         }
-    }catch (Exception e){
+    /*}catch (Exception e){
         env.FAILURE_STAGE ="Connection request timeout"
         error("Connection request timeout")
-    }
+    }*/
     respond = jsonSlurper.parseText(post.getInputStream().getText())
     assert respond instanceof Map
     if(respond.status=="F"){
@@ -45,8 +45,8 @@ pipeline {
         stage("Invoker") {
             steps{
                 script{
-                    try{invokerHttp()}catch (Exception e){sh 'echo errr'}
-                    //build("Test-Jmeter")
+                    invokerHttp()
+                    //try{invokerHttp()}catch (Exception e){sh 'echo errr'}
                 }
             }
         }
