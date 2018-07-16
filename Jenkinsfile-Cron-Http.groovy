@@ -6,8 +6,9 @@ def invokerHttp(){
     def reader = new BufferedReader(new InputStreamReader(new FileInputStream("$filePath"),"UTF-8"))
     def configuration = jsonSlurper.parse(reader)
     assert configuration instanceof Map
+    def post = null
     try {
-        def post = new URL("$configuration.url").openConnection();
+        post = new URL("$configuration.url").openConnection();
         post.setRequestMethod("$configuration.method")
         post.setConnectTimeout(30000)
         post.setReadTimeout(30000)
@@ -22,7 +23,8 @@ def invokerHttp(){
             env.FAILURE_STAGE = "Error Code: " + post.getResponseCode() + ", Messages: Please click link ->"
             error("Error Code: " + post.getResponseCode())
         }
-    }catch (Exception){
+    }catch (Exception e){
+        e.printStackTrace()
         env.FAILURE_STAGE ="Connection request timeout"
         error("Connection request timeout")
     }
