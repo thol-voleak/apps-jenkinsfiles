@@ -41,7 +41,7 @@ pipeline {
         stage("Invoker") {
             steps{
                 script{
-                    invokerHttp()
+                    try{invokerHttp()}catch (Exception e){sh 'echo errr'}
                     //build("Test-Jmeter")
                 }
             }
