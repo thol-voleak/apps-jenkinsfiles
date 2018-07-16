@@ -48,17 +48,12 @@ pipeline {
     }
     post {
         success{
-            //sh "echo sucess"
-            //mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
-            slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER} (<${env.BUILD_URL}|Detail>)]'")
+            sh "echo sucess"
+            //slackSend (color: '#33ff36', message: "Sucessed built: Job '${env.JOB_NAME} [${env.BUILD_NUMBER} (<${env.BUILD_URL}|Detail>)]'")
         }
         failure {
-            //emailext attachmentsPattern: '**/testing.html', body: 'Test attachments', to: 'voleak.rupp@gmail.com'
-            //sh "echo ${message}"
-            //mail bcc: '', body: 'hello', cc: 'thol.voleak@gmail.com', from: '', replyTo: '', subject: 'Testing', to: 'voleak.rupp@gmail.com'
-            //emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'voleak.rupp@gmail.com'
-            //emailext body: 'A Test EMail', subject: 'Test', to: 'voleak.rupp@gmail.com'
-            slackSend (color: '#FF0000', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
+            sh "echo ${message}"
+            //slackSend (color: '#FF0000', message: "Failed build:: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]\nReason: [${env.FAILURE_STAGE} (<${env.BUILD_URL}|Detail>)]'")
         }
     }
 }
