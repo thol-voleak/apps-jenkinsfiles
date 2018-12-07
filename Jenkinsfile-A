@@ -8,6 +8,7 @@ pipeline {
           steps{
             script{
               git branch: '$BRANCH',credentialsId: 'devops-bitbucket-credential',url: '$GIT_URL'
+              git checkout tags/release_01
             }
           }
         }
